@@ -17,12 +17,22 @@
                 </h4>
             </div>
             <div class="col-md-6">
-                <a href="<?php echo url('student/addstudent')?>">
-                <button type="button" class="btn btn-primary" style="float: right">
-                    Nhập sinh viên mới
-                </button>
+                <a href="<?php echo url('student/addstudent') ?>">
+                    <button type="button" class="btn btn-primary" style="float: right">
+                        Nhập sinh viên mới
+                    </button>
                 </a>
             </div>
+            <?php if(Session::get('message') != ""):?>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="alert alert-success" role="alert">
+                        <?php echo Session::get('message'); ?>
+                    </div>
+
+                </div>
+            </div>
+            <?php endif;?>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -45,7 +55,7 @@
                                 Địa chỉ
                             </th>
                             <th>
-                               Hành động
+                                Hành động
                             </th>
                         </tr>
                     </thead>
@@ -68,7 +78,7 @@
                                     <?php echo $student->address ?>
                                 </td>
                                 <td>
-                                    <a href="<?php echo url('student/delete_edit?id='.$student->id)?>">Sửa</a>
+                                    <a href="<?php echo url('student/delete_edit?id=' . $student->id) ?>">Sửa</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

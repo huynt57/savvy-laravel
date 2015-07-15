@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'StudentController@index');
 
 Route::get('home', 'HomeController@index');
 
@@ -21,7 +21,7 @@ Route::get('student', 'StudentController@index');
 
 Route::get('student/addstudent', 'StudentController@addstudent');
 
-Route::get('student/edit', 'StudentController@edit');
+Route::post('student/edit', 'StudentController@edit');
 
 
 Route::get('student/delete_edit', 'StudentController@editstudent');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class StudentController extends Controller {
     /*
@@ -31,6 +32,17 @@ class StudentController extends Controller {
      *
      * @return Response
      */
+    public function clean($string) {
+        $string = strip_tags($string);
+        $string = stripcslashes($string);
+        $string = htmlspecialchars($string);
+        //  $p = new CHtmlPurifier();
+        // $string = $p->purify($string);
+        $string = addslashes($string);
+        $string = str_replace("\r\n", "\n", $string);
+        return $string;
+    }
+
     public function index() {
         $students = Student::all();
         return view('student/index', array('students' => $students));
@@ -38,53 +50,64 @@ class StudentController extends Controller {
 
     public function addStudent(Request $request) {
         // $request = new Request;
-        $name = $request->input('student-name');
-        $code = $request->input('student-code');
-        $address = $request->input('student-address');
-        $dob = $request->input('student-dob');
-        $gender_inp = $request->input('male');
-        if (isset($gender_inp)) {
+        $name = $this->clean($request->input('student-name'));
+        $code = $this->clean($request->input('student-code'));
+        $address = $this->clean($request->input('student-address'));
+        $dob = $this->clean($request->input('student-dob'));
+        $genderInp = $this->clean($request->input('male'));
+        if (isset($genderInp)) {
             $gender = "Nam";
         } else {
             $gender = "Nữ";
         }
-        $student = new Student;
-        $student->name = $name;
-        $student->student_code = $code;
-        $student->dob = $dob;
-        $student->gender = $gender;
-        $student->address = $address;
+        if ($name != "" && $code != "" && $address != "" && $dob != "") {
+            $student = new Student;
+            $student->name = $name;
+            $student->student_code = $code;
+            $student->dob = $dob;
+            $student->gender = $gender;
+            $student->address = $address;
 
-        $student->save();
-
+            $student->save();
+            return Redirect::to(url('student'))->with('message', 'Tác vụ thành công !');
+        }
         return view('student/add');
     }
 
     public function edit(Request $request) {
-        $id = $request->input('student-id');
-        $name = $request->input('student-name');
-        $code = $request->input('student-code');
-        $address = $request->input('student-address');
-        $dob = $request->input('student-dob');
-        $gender_inp = $request->input('male');
-        if (isset($gender_inp)) {
+        $id = $this->clean($request->input('id'));
+        $name = $this->clean($request->input('student-name'));
+        $code = $this->clean($request->input('student-code'));
+        $address = $this->clean($request->input('student-address'));
+        $dob = $this->clean($request->input('student-dob'));
+        $genderInp = $this->clean($request->input('male'));
+        $type = $this->clean($request->input('type'));
+        if (isset($genderInp)) {
             $gender = "Nam";
         } else {
             $gender = "Nữ";
         }
+        if ($type == "edit") {
+            if ($name != "" && $code != "" && $address != "" && $dob != "" && $id != "") {
+                $student = Student::find($id);
+                $student->name = $name;
+                $student->student_code = $code;
+                $student->dob = $dob;
+                $student->gender = $gender;
+                $student->address = $address;
 
-        $student = Student::find($id);
-        $student->name = $name;
-        $student->student_code = $code;
-        $student->dob = $dob;
-        $student->gender = $gender;
-        $student->address = $address;
-
-        $student->save();
+                $student->save();
+                return Redirect::back()->with('message', 'Tác vụ thành công !');
+            }
+        } else {
+            $student = Student::find($id);
+            $student->delete();
+            return Redirect::to(url('student'))->with('message', 'Tác vụ thành công !');
+        }
     }
 
     public function editStudent(Request $request) {
-        $id = $request->input('id');
+        $id = $this->clean($request->input('id'));
         $student = Student::find($id);
         return view('student/delete_edit', array('student' => $student));
     }

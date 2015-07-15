@@ -13,13 +13,13 @@
 
         <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-        
+
         <!-- Scripts -->
-       <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
         <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-        <script src="http://1000hz.github.io/bootstrap-validator/dist/validator.min.js"></script>
+        <script src="{{ asset('/js/validator.js') }}"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,10 +29,15 @@
         <![endif]-->
     </head>
     <body>
-
+        <style>
+            .form-group.required .control-label:after {
+                content:"*";
+                color:red;
+            }
+        </style>
         @yield('content')
 
-        
+
 
     </body>
 </html>
