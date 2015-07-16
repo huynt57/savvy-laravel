@@ -60,8 +60,8 @@
                     <label for="student-gender" class="control-label">
                         Giới tính
                     </label> <br>
-                    <label><input type="radio" name="male" checked="checked">Nam</label>
-                    <label><input type="radio" name="female">Nữ</label>
+                    <label><input type="radio" name="gender" checked="checked" value="male">Nam</label>
+                    <label><input type="radio" name="gender" value="female">Nữ</label>
                 </div>
 
                 <div class="form-group required">

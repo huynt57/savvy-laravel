@@ -63,8 +63,10 @@
                     <label for="student-gender" class="control-label">
                         Giới tính
                     </label> <br>
-                    <label><input type="radio" name="male" <?php if ($student->gender == "Nam") echo 'checked="checked"' ?> >Nam</label>
-                    <label><input type="radio" name="female" <?php if ($student->gender == "Nữ") echo 'checked="checked"' ?>>Nữ</label>
+                    
+                        <label><input type="radio" name="gender" value="male" <?php if ($student->gender == "Nam") echo 'checked="checked"' ?> >Nam</label>
+                        <label><input type="radio" name="gender" value="female"<?php if ($student->gender == "Nữ") echo 'checked="checked"' ?>>Nữ</label>
+                   
 
                 </div>
                 <div class="radio">
@@ -80,7 +82,8 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-default" name="type" value="delete"  onSubmit="if(!confirm('Is the form filled out correctly?')){return false;}">
+                <button type="submit" class="btn btn-default" name="type" value="delete"  onclick="if(!confirm('Bạn có chắc chắn muốn xóa sinh viên: Mã sinh viên: <?php 
+                echo $student->student_code?>, Họ tên: <?php echo $student->name ?> ??')){return false;}">
                     Xóa
                 </button>
                 <button type="submit" class="btn btn-default" style="float: right" name="type" value="edit">

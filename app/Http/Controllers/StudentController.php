@@ -54,8 +54,8 @@ class StudentController extends Controller {
         $code = $this->clean($request->input('student-code'));
         $address = $this->clean($request->input('student-address'));
         $dob = $this->clean($request->input('student-dob'));
-        $genderInp = $this->clean($request->input('male'));
-        if (isset($genderInp)) {
+        $genderInp = $this->clean($request->input('gender'));
+        if ($genderInp == "male") {
             $gender = "Nam";
         } else {
             $gender = "Nữ";
@@ -80,13 +80,14 @@ class StudentController extends Controller {
         $code = $this->clean($request->input('student-code'));
         $address = $this->clean($request->input('student-address'));
         $dob = $this->clean($request->input('student-dob'));
-        $genderInp = $this->clean($request->input('male'));
-        $type = $this->clean($request->input('type'));
-        if (isset($genderInp)) {
+        $genderInp = $this->clean($request->input('gender'));
+        if ($genderInp == "male") {
             $gender = "Nam";
         } else {
             $gender = "Nữ";
         }
+        $type = $this->clean($request->input('type'));
+       
         if ($type == "edit") {
             if ($name != "" && $code != "" && $address != "" && $dob != "" && $id != "") {
                 $student = Student::find($id);
