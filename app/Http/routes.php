@@ -23,6 +23,9 @@ Route::get('student/addstudent', 'StudentController@addstudent');
 
 Route::post('student/edit', 'StudentController@edit');
 
+Route::post('student/paginate', 'StudentController@paginate');
+
+Route::post('student/search', 'StudentController@search');
 
 Route::get('student/delete_edit', 'StudentController@editstudent');
 

@@ -6,8 +6,11 @@
             <file>file:/E:/xampp/htdocs/savvy/resources/views/student/add.blade.php</file>
             <file>file:/E:/xampp/htdocs/savvy/app/Http/Controllers/StudentController.php</file>
             <file>file:/E:/xampp/htdocs/savvy/app/Http/Controllers/WelcomeController.php</file>
+            <file>file:/E:/xampp/htdocs/savvy/resources/views/student/delete_edit.blade.php</file>
             <file>file:/E:/xampp/htdocs/savvy/resources/views/layout.blade.php</file>
             <file>file:/E:/xampp/htdocs/savvy/resources/views/app.blade.php</file>
+            <file>file:/E:/xampp/htdocs/savvy/app/Student.php</file>
+            <file>file:/E:/xampp/htdocs/savvy/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php</file>
         </group>
     </open-files>
 </project-private>
