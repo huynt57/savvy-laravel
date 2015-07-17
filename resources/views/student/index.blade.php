@@ -33,15 +33,16 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <input type="text" class="form-control" id="find-student" style="width: 370px; ">
-                    
+
                 </div>
             </div>
             <div class="col-md-2" >
                 <div class="form-group">
-                    
+
                     <button class="btn btn-default" id="search" style="float: right">Tìm</button>
                 </div>
             </div>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf_token">
         </div>
         <?php if (Session::get('message') != ""): ?>
             <div class="row">
@@ -108,15 +109,18 @@
                     <ul class="pagination" style="float: right">
                         <li id="previous"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 
-                        <?php 
+                        <?php
                         $page = 0;
-                        if($records % 2 == 0) $page = $records / 2;
-                        else $page = $records / 2 + 1;
-                        for ($i = 1; $i <= $page; $i++): ?>
+                        if ($records % 2 == 0)
+                            $page = $records / 2;
+                        else
+                            $page = $records / 2 + 1;
+                        for ($i = 1; $i <= $page; $i++):
+                            ?>
 
                             <li curr = "<?php echo $i - 1 ?>" id="page-<?php echo $i ?>"><a href="javascript:void(0)" onclick="paginate(<?php echo $i - 1 ?>, <?php echo $records ?>)"><?php echo $i ?> <span class="sr-only" >(current)</span></a></li>
 
-                        <?php endfor; ?>
+<?php endfor; ?>
                         <li id="next"><a href="#" aria-label="Next"><span aria-hidden="true">&#187;</span></a></li>
                     </ul>
                 </div>
@@ -151,13 +155,14 @@
 
         $('#search').click(function() {
             var query = $('#find-student').val();
+            var token = $('#csrf_token').val();
             $.ajax({
                 beforeSend: function() {
                     $('#table-student').html('<img style = "margin: 0 auto"src = "<?php echo url() . '/images/ajax-loader.gif' ?>" />');
                 },
                 type: 'POST',
                 url: 'student/search',
-                data: {query: query},
+                data: {query: query, _token: token},
                 dataType: 'json',
                 success: function(response) {
                     $('#table-student').empty();
@@ -197,6 +202,7 @@
         })
     });
     function paginate(num, total) {
+        var token = $('#csrf_token').val();
         num = parseInt(num);
         id = num + 1;
         if (id * 2 < total) {
@@ -212,7 +218,7 @@
             },
             type: 'POST',
             url: 'student/paginate',
-            data: {current: num},
+            data: {current: num, _token: token},
             dataType: 'json',
             success: function(response) {
                 $('#table-student').empty();
